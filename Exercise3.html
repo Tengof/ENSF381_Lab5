@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab5 - Exercise 1</title>
+</head>
+<body>
+    <input type="text" id="textInput" onkeydown="keyPressed(event)">
+    <label id="textLabel"></label>
+    <button id="redButton" onclick="redButton()">Red</button>
+    <button id="blueButton" onclick="blueButton()">Blue</button>
+    <button id="greenButton" onclick="greenButton()">Green</button>
+    <button id="orangeButton" onclick="orangeButton()">Orange</button>
+    <button id="purpleButton" onclick="purpleButton()">Purple</button>
+</body>
+<script type="text/javascript">
+    async function retrieveData(){
+        try{
+            const response = await fetch("https://67c1faf561d8935867e4f1f8.mockapi.io/users_api");
+            const users = await response.json();
+            console.log(users);
+            var counter = 0;
+            users.forEach((user) => {
+                var textbox = document.getElementById("textInput").value;
+                
+                if(user.ID == textbox){
+                    var textLabel = document.getElementById("textLabel");
+                    var output = `ID: ${user.ID}, Name: ${user.first_name}, Group: ${user.user_group}`;
+                    textLabel.innerHTML = output;
+                    counter++
+                }
+            })
+            if(counter == 0){
+                var textLabel = document.getElementById("textLabel");
+                textLabel.innerHTML = "No users were found the the provided User_ID";
+            }
+
+        } catch(error){
+            console.error("Error fetch data:", error);
+        }
+    }
+
+    function keyPressed(event){
+        if (event.code == "Enter"){
+            //var textbox = document.getElementById("textInput");
+            //var textLabel = document.getElementById("textLabel");
+            
+            retrieveData();
+           
+        }
+    }
+
+    function redButton(){
+        const button = document.getElementById("redButton");
+        var textLabel = document.getElementById("textLabel");
+        textLabel.style.color = "red";
+        
+    }
+
+    function blueButton(){
+        const button = document.getElementById("blueButton");
+            var textLabel = document.getElementById("textLabel");
+            textLabel.style.color = "blue";
+    }
+
+    function greenButton(){
+        const button = document.getElementById("greenButton");
+            var textLabel = document.getElementById("textLabel");
+            textLabel.style.color = "green";
+    }
+
+    function orangeButton(){
+        const button = document.getElementById("orangeButton");
+            var textLabel = document.getElementById("textLabel");
+            textLabel.style.color = "orange";
+    }
+
+    function purpleButton(){
+        const button = document.getElementById("purpleButton");
+            var textLabel = document.getElementById("textLabel");
+            textLabel.style.color = "purple";
+    }
+
+
+</script>
+</html>
